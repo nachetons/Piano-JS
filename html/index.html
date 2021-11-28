@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="piano"></div>
+    <ul id="music-sheet"></ul>
+    <form id="controls">
+      <button id="play">Play</button>
+      <button id="pause" style="visibility: hidden;">Pause</button>
+      <button id="stop" style="visibility: hidden;">Stop</button>
+      <%= require('html-loader!./file.html').default %>
+  </form>
+  </body>
+</html>

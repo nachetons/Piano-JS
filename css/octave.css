@@ -1,0 +1,16 @@
+.octave {
+  margin:0;
+  padding:0;
+  list-style:none;
+  display: inline-block;
+}
+
+.octave ul {
+  margin:0;
+  padding:0;
+  display: inline-block;
+}
+
+.octave.selected {
+  /*border: 5px solid green;*/
+}
