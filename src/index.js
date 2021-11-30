@@ -7,6 +7,7 @@ import { readMusicSheet, playMusicSheet } from "./music-sheet.js";
 
 const pianoDOM = createPiano();
 
+
 document.getElementById("piano").appendChild(pianoDOM);
 octaveSelection(octaveSelected);
 
@@ -96,8 +97,8 @@ function handleFiles() {
 
 
 export function soundKey(note) {
+    let audioContext = new AudioContext();
 
-    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     var now = audioContext.currentTime;
     let mainGainNode = audioContext.createGain();
     let osc = audioContext.createOscillator();
@@ -123,45 +124,56 @@ export function soundKey(note) {
     
     //osc.frequency.value = 51.913087197493142;
     mainGainNode.connect(audioContext.destination);
+
+
+
+
+     
+            setTimeout(() => { audioContext.close();}, 1500);
+           
     //osc.start(0);
     
-    setTimeout(function () {
-        osc.stop();
-    }, 1500)
+    
 }
 
 
 export function soundPartiture(note, duration) {
-
-    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    var now = audioContext.currentTime;
-    let mainGainNode = audioContext.createGain();
-    let osc = audioContext.createOscillator();
-
-    console.log(duration);
-    //mainGainNode.gain.value = 4;
-    osc.type = "sine";
-    osc.frequency.value = note;
+    let audioContext = new AudioContext();
 
 
-    mainGainNode.gain.setValueAtTime(0, now);
-    mainGainNode.gain.linearRampToValueAtTime(1, now + 0.01);
-    osc.start(now);
-    mainGainNode.gain.exponentialRampToValueAtTime(0.001, now + 1);
-    osc.stop(now + 1);
-
-    //mainGainNode.gain.linearRampToValueAtTime(0, now);
-    //mainGainNode.gain.linearRampToValueAtTime(.6, now + .1);
-    //mainGainNode.gain.linearRampToValueAtTime(0, now + 1);
-
-    //mainGainNode.gain.exponentialRampToValueAtTime(0.00001, now + 0.5);
-    osc.connect(mainGainNode);
     
-    //osc.frequency.value = 51.913087197493142;
-    mainGainNode.connect(audioContext.destination);
+
+
     //osc.start(0);
+
+
+        var now = audioContext.currentTime;
+        let mainGainNode = audioContext.createGain();
+        let osc = audioContext.createOscillator();
     
-    setTimeout(function () {
-        osc.stop();
-    }, duration)
+        //mainGainNode.gain.value = 4;
+        osc.type = "sine";
+        osc.frequency.value = note;
+    
+    
+        mainGainNode.gain.setValueAtTime(0, now);
+        mainGainNode.gain.linearRampToValueAtTime(1, now + 0.01);
+        osc.start(now);
+        mainGainNode.gain.exponentialRampToValueAtTime(0.001, now + 1);
+        osc.stop(now + 1);
+    
+        //mainGainNode.gain.linearRampToValueAtTime(0, now);
+        //mainGainNode.gain.linearRampToValueAtTime(.6, now + .1);
+        //mainGainNode.gain.linearRampToValueAtTime(0, now + 1);
+    
+        //mainGainNode.gain.exponentialRampToValueAtTime(0.00001, now + 0.5);
+        osc.connect(mainGainNode);
+        
+        //osc.frequency.value = 51.913087197493142;
+        mainGainNode.connect(audioContext.destination);
+
+        setTimeout(() => { audioContext.close();}, 1500);
+
+
+        
 }
