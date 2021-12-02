@@ -34,6 +34,8 @@ play.onclick = function (event) {
     stopfn = playMusicSheet(function () {
         play.disabled = false;
         pause.style.visibility = "hidden";
+        file.style.visibility = "visible";
+        file.disabled = false;
     });
     event.preventDefault();
 }
@@ -92,9 +94,6 @@ function handleFiles() {
 
 }
 
-/* read keys from freqs.js */
-/*keys.find(key => key.note === note);*/
-
 
 export function soundKey(note) {
     let audioContext = new AudioContext();
@@ -125,11 +124,7 @@ export function soundKey(note) {
     //osc.frequency.value = 51.913087197493142;
     mainGainNode.connect(audioContext.destination);
 
-
-
-
-     
-            setTimeout(() => { audioContext.close();}, 1500);
+    setTimeout(() => { audioContext.close();}, 1500);
            
     //osc.start(0);
     
@@ -140,19 +135,13 @@ export function soundKey(note) {
 export function soundPartiture(note, duration) {
     let audioContext = new AudioContext();
 
-
-    
-
-
-    //osc.start(0);
-
-
         var now = audioContext.currentTime;
         let mainGainNode = audioContext.createGain();
         let osc = audioContext.createOscillator();
     
-        //mainGainNode.gain.value = 4;
         osc.type = "sine";
+
+        //le paso el valor de la nota ejemplo: C4
         osc.frequency.value = note;
     
     
@@ -162,16 +151,9 @@ export function soundPartiture(note, duration) {
         mainGainNode.gain.exponentialRampToValueAtTime(0.001, now + 1);
         osc.stop(now + 1);
     
-        //mainGainNode.gain.linearRampToValueAtTime(0, now);
-        //mainGainNode.gain.linearRampToValueAtTime(.6, now + .1);
-        //mainGainNode.gain.linearRampToValueAtTime(0, now + 1);
-    
-        //mainGainNode.gain.exponentialRampToValueAtTime(0.00001, now + 0.5);
         osc.connect(mainGainNode);
-        
-        //osc.frequency.value = 51.913087197493142;
         mainGainNode.connect(audioContext.destination);
-
+        //cierro los audiocontext para que no se saturen en el navegador ya que tiene limite de 50
         setTimeout(() => { audioContext.close();}, 1500);
 
 

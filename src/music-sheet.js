@@ -81,7 +81,7 @@ export function playMusicSheet(callback) {
             soundPartiture(keys[note], duration[durationnote]);
 
             playKey(note, true);
-            playPiano = setTimeout(function () {
+            playPiano2 = setTimeout(function () {
                 playKey(note, false);
                 musicSheetKeyDOM.classList.remove("play");
 
@@ -98,13 +98,14 @@ export function playMusicSheet(callback) {
  
         
     if (actualKeyIndex >= musicSheetKeysDOM.length) {
+        musicSheetKeyDOM.classList.remove("play");
         clearTimeout(playPiano);
         clearTimeout(playPiano2);
         actualKeyIndex = 0;
         playPiano = null;
         playPiano2 = null;
         callback();
-
+        return;
     }
 
 
